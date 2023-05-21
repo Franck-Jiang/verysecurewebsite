@@ -1,0 +1,62 @@
+activate venv:
+source /home/arta/.local/share/virtualenvs/djangoProject-arRuBvF8/bin/activate
+
+run server:
+python manage.py runserver
+
+create app:
+python manage.py startapp appname
+
+migrate data:
+python manage.py makemigration  (commit)
+python manage.py migrate        (push)
+
+add a page:
+create view function in views.py
+    return render(request, '.html', {context})
+add url in urlpatterns in urls.py
+
+use db:
+add class in models (table name in db)
+
+
+
+
+
+what ?
+
+user can register as patient
+    need to be secured
+    save passwd hash in Patient(passwd)
+    add salt
+
+user can log to their account -> redirect to personal page
+    log compares hashs
+    shows appointments (as patient or doctor)
+    need to be secured, no access if not logged in
+
+create appointment class for db ?
+    date, patient, doctor
+
+patient take, check, remove their appointment
+
+to do:
+
+appointment class/obj
+data display
+sessions
+login 
+logout
+
+archi
+
+login/          #log in form
+register/       #register form as patient or doctor 
+home/           #home page, rediretion to other pages
+personal/(id ?) #sessions
+appointment/    #form with appointment
+ 
+
+ 
+
+ 

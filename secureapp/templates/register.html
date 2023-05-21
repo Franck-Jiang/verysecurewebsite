@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <form class="row g-3 needs-validation" novalidate method = "POST">
+            {% csrf_token %}
+
+            <div class="col-md-6">
+                <label for="first_name" class="form-label">First name</label>
+                <input type="text" class="form-control" id="first_name" placeholder="First name" required>
+            </div>
+            <div class="col-md-6">
+                <label for="last_name" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="last_name" placeholder="Last name" required>       
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="user@example.com" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Phone number" required>
+            </div>
+            <div class="col-md-6">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" placeholder="Age" required>
+            </div>
+            <div class="col-md-6">
+                <label for="zipcode" class="form-label">Zipcode</label>
+                <select class="form-select" id="zipcode" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option>1000</option>
+                    <option>0200</option>
+                    <option>0030</option>
+                    <option>0004</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="col-md-6">
+                <label for="confirm_pass" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" required>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+{% if form.errors %}
+    <ul class="errorlist">
+        {% for field_errors in form.errors.values %}
+            {% for error in field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<!-- {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %} -->
