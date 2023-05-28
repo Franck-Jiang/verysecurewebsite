@@ -19,7 +19,8 @@ add url in urlpatterns in urls.py
 use db:
 add class in models (table name in db)
 
-
+link in html:
+href: url name
 
 
 

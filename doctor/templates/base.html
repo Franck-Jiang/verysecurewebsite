@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script src="{% static 'js/app.js' %}" defer></script>
-    <title>My Site</title>
+    <title>My Site for doctors</title>
   </head>
   <body>
+	<h1> DOCTORS </h1>
   	<header>
   		{%if request.user.is_authenticated %}
   			<span>Hi {{ request.user.username | title }}</span>
@@ -16,7 +17,7 @@
   			<a href="{% url 'Info' %}">Personal Informations</a>
   		{%else%}
   			<a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'RegisterPatient' %}">Register</a>
+            <a href="{% url 'RegisterDoctor' %}">Register</a>
   		{%endif%}
   	</header>
   	<main>
