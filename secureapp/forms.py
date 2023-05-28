@@ -1,17 +1,12 @@
 from django import forms
+from django.contrib.auth.models import User 
+from django.contrib.auth.forms import UserCreationForm      
 
-class RegisterForm(forms.Form):
-     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].label = "MonAutreChamp"
-        
-        fname = forms.CharField(label='First Name', max_length=100)
-        lname = forms.CharField(label='Last Name', max_length=100)
-        email = forms.EmailField(label='Email')
-        phone = forms.CharField(label='Phone Number', max_length=100)
-        age = forms.IntegerField(label='Age')
-        zip = forms.CharField(label='Zipcode', max_length=100)
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=65)
+    password = forms.CharField(max_length=65, widget=forms.PasswordInput)
     
-    
-    
-    #to be continued
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model=User
+        fields = ['username','email','password1','password2'] 
