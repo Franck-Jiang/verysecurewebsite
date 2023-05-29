@@ -5,10 +5,10 @@ from .views import login_view, sign_out, success, base_view, show_information, s
 
 
 urlpatterns = [
-    path('login/', login_view, name="Login"),
-    path('logout/', sign_out, name="Logout"),
-    path('register/', sign_up_doctor, name="RegisterPatient"),
-    path('info/', show_information, name="Info"),
-    path('success/', success, name="success"),
-    path('', base_view)
+    path('login/', login_view, name="LoginD"),
+    path('logout/', sign_out, name="LogoutD"),
+    path('register/', sign_up_doctor, name="RegisterD"),
+    path('info/', show_information, name="InfoD"),
+    path('success/', success, name="successD"),
+    path('', base_view, name='doctor')
 ]

@@ -1,13 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'baseD.html' %}
 
 {% block content %}
 
-<h1>Log in as Doctor</h1>
-    <form method="POST" novalidate>
-        {% csrf_token %}
-        <h2>Login as doctor</h2>
-        {{form.as_p}}
-        <input type="submit" value="Login" />
-    </form>
+<form method="POST" novalidate>
+    {% csrf_token %}
+    <h2>Login as doctor</h2>
+    {{form.as_p}}
+    <input type="submit" value="Login" />
+</form>
 
 {% endblock content%}

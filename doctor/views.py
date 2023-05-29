@@ -86,7 +86,7 @@ def base_view(request):
     context = {
         'message': 'Bonjour depuis la vue ABC !',
     }
-    return render(request, 'base.html', context)
+    return render(request, 'baseD.html', context)
 
 def show_information(request):
     return None

@@ -9,6 +9,7 @@
     <title>My Site</title>
   </head>
   <body>
+	<h1> PATIENTS </h1>
   	<header>
   		{%if request.user.is_authenticated %}
   			<span>Hi {{ request.user.username | title }}</span>
@@ -16,7 +17,8 @@
   			<a href="{% url 'Info' %}">Personal Informations</a>
   		{%else%}
   			<a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'RegisterPatient' %}">Register</a>
+			<a href="{% url 'RegisterPatient' %}">Register</a>
+			<a href="{% url 'doctor' %}">As Doctor</a>
   		{%endif%}
   	</header>
   	<main>

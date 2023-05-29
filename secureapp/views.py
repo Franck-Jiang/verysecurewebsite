@@ -8,23 +8,6 @@ from .forms import LoginForm, RegisterForm, InformationForm, PatientRegisterForm
 from .models import Patient
 
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)   #form à personnaliser
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('success/')           #redirection à changer
-            else:
-                form.add_error(None, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, 'login.html', {'form': form})
-
 def success(request):
     return render(request, 'success.html', {})
 
@@ -47,13 +30,13 @@ def sign_in(request):
         form = LoginForm(request.POST)
         
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request,username=username,password=password)
             if user:
                 login(request, user)
                 messages.success(request,f'Hi {username.title()}, welcome back!')
-                return redirect('abc/')
+                return redirect('home')
         
         # form is not valid or user is not authenticated
         messages.error(request,f'Invalid username or password')
@@ -68,7 +51,7 @@ def sign_up_patient(request):
         form = PatientRegisterForm(request.POST) 
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = user.first_name.lower()+user.last_name.lower()
+            user.username = user.email
             patient = Patient.objects.create(
                 first_name  = form.cleaned_data['first_name'],
                 last_name   = form.cleaned_data['last_name'],
@@ -77,7 +60,7 @@ def sign_up_patient(request):
                 zipcode     = form.cleaned_data['zipcode'],
                 phone_num   = form.cleaned_data['phone_num'],                
             )
-            user.save()
+            form.save()
             messages.success(request, 'You have singed up successfully as patient.')
             login(request, user)
             return redirect('success/')
@@ -86,28 +69,31 @@ def sign_up_patient(request):
           
 def patient_information(request):
     if request.method == 'GET':
-        form = InformationForm()
-        
+        patient = Patient.objects.get(email=request.user.username)
+             
+        form = InformationForm( initial={       
+                                'first_name' : patient.first_name,
+                                'last_name' : patient.last_name,
+                                'email' : patient.email,
+                                'age' : patient.age,
+                                'zipcode' : patient.zipcode,
+                                'phone_num' : patient.phone_num}  )
+
         return render(request, 'personal.html', {'form': form})      
+    
     if request.method == 'POST':
-        form = InformationForm(request.POST)
+        form = InformationForm()
         if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            email = form.cleaned_data['email']
-            age = form.cleaned_data['age']
-            zipcode = form.cleaned_data['zipcode']
-            phone_num = form.cleaned_data['phone_num']
-            patient = Patient.objects.create(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                age=age,
-                zipcode=zipcode,
-                phone_num=phone_num,                
-            )
+            patient = Patient.objects.get(email=request.user.username)
+            patient.first_name = form.cleaned_data['first_name']
+            patient.last_name = form.cleaned_data['last_name']
+            patient.age = form.cleaned_data['age']
+            patient.zipcode = form.cleaned_data['zipcode']
+            patient.phone_num = form.cleaned_data['phone_num']
+            patient.save()
             return render(request, 'success.html', {})
         else:
+            messages.error(request, f"Error")
             return render(request, 'personal.html', {'form': form})
 
 def sign_out(request):
@@ -115,7 +101,9 @@ def sign_out(request):
     messages.success(request,f'You have been logged out.')
     return redirect('success/')  
 
-
+def redirect_doctor(request):
+    return redirect('/')  
+    
 def add_record(request):
     print("record added")
     return None

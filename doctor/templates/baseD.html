@@ -13,12 +13,13 @@
   	<header>
   		{%if request.user.is_authenticated %}
   			<span>Hi {{ request.user.username | title }}</span>
-  			<a href="{% url 'Logout' %}">Logout</a>
-  			<a href="{% url 'Info' %}">Personal Informations</a>
+  			<a href="{% url 'LogoutD' %}">Logout</a>
+  			<a href="{% url 'InfoD' %}">Personal Informations</a>
   		{%else%}
-  			<a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'RegisterDoctor' %}">Register</a>
-  		{%endif%}
+  			<a href="{% url 'LoginD' %}">Login</a>
+			<a href="{% url 'RegisterD' %}">Register</a>
+			<a href="{% url 'home' %}">As Patient</a>
+		{%endif%}
   	</header>
   	<main>
 	  	{% if messages %}
