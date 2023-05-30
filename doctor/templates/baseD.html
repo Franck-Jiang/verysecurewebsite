@@ -15,6 +15,7 @@
   			<span>Hi {{ request.user.username | title }}</span>
   			<a href="{% url 'LogoutD' %}">Logout</a>
   			<a href="{% url 'InfoD' %}">Personal Informations</a>
+  			<a href="{% url 'create_record' %}">Create new record</a>
   		{%else%}
   			<a href="{% url 'LoginD' %}">Login</a>
 			<a href="{% url 'RegisterD' %}">Register</a>

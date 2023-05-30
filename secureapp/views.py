@@ -60,10 +60,10 @@ def sign_up_patient(request):
                 zipcode     = form.cleaned_data['zipcode'],
                 phone_num   = form.cleaned_data['phone_num'],                
             )
-            form.save()
+            user.save()
             messages.success(request, 'You have singed up successfully as patient.')
             login(request, user)
-            return redirect('success/')
+            return redirect('success')
         else:
             return render(request, 'register.html', {'form': form})        
           
@@ -104,13 +104,6 @@ def sign_out(request):
 def redirect_doctor(request):
     return redirect('/')  
     
-def add_record(request):
-    print("record added")
-    return None
-
-def delete_record(request):
-    print("record deleted")
-    return None
 
 def consult_record(request):
     print("record consulted")
