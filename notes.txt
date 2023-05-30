@@ -22,7 +22,10 @@ add class in models (table name in db)
 link in html:
 href: url name
 
-
+creation token auth:
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+Token.objects.create(user=<user>)
 
 what ?
 

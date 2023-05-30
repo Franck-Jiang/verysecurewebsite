@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm, InformationForm, PatientRegisterForm
 from .models import Patient
-
+import requests
 
 def success(request):
     return render(request, 'success.html', {})
@@ -34,6 +34,15 @@ def sign_in(request):
             password = form.cleaned_data['password']
             user = authenticate(request,username=username,password=password)
             if user:
+                response = requests.post('http://localhost:8000/get-token/', 
+                                         json={ "username":username,
+                                                "password":password})
+                # Vérifier le statut de la réponse
+                if response.status_code == 200:
+                    # La requête a réussi
+                    token = response.json()  # Obtenir les données de réponse au format JSON
+                    # Faire quelque chose avec les données
+                    print(token)     #a utiliser
                 login(request, user)
                 messages.success(request,f'Hi {username.title()}, welcome back!')
                 return redirect('home')
@@ -70,7 +79,7 @@ def sign_up_patient(request):
 def patient_information(request):
     if request.method == 'GET':
         patient = Patient.objects.get(email=request.user.username)
-             
+        print(request.body)
         form = InformationForm( initial={       
                                 'first_name' : patient.first_name,
                                 'last_name' : patient.last_name,
@@ -112,3 +121,5 @@ def consult_record(request):
 def upload_file(request):
     print("file uploaded")
     return None
+
+    
